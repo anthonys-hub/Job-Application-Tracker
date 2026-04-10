@@ -38,6 +38,20 @@ router.post('/', authMiddleware, async (req, res) => {
 }
 )
 
+router.put('/:id', authMiddleware, async (req, res) => {
+    try {
+        const { company, position, status, date_applied, notes } = req.body
+        const jobId = req.params.id
+        const edit = await pool.query('UPDATE jobs SET company = $1, position = $2 WHERE id = $3 AND user_id = $4', [req.user.id, company, position, status, date_applied, notes])
+        return res.status(200).json({ message: 'Successfully edited! :)' });
+    }
+
+
+    catch {
+        return res.status(500).json({ message: 'Server error' });
+    }
+})
+
 
 
 
