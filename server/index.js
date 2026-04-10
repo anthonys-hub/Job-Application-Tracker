@@ -3,6 +3,8 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 const pool = require('./db')
 const authRoutes = require('./routes/auth.js')
+const authMiddleware = require('./middleware/authMiddleware.js')
+const jobs = require('./routes/jobs.js')
 
 
 const app = express()
@@ -12,11 +14,17 @@ dotenv.config()
 app.use(cors())
 app.use(express.json())
 
+
 app.use('/api/auth', authRoutes)
+app.use('/api/jobs', jobs)
 
 app.get('/api/test', (req, res) => {
     res.json({ message: 'Server is running' })
 })
+
+
+
+
 
 pool.query('SELECT NOW()', (err, res) => {
     if (err) {

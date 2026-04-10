@@ -35,6 +35,21 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body
+        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email])
+        if (result.rows.length === 0) {
+            return res.status(400).json({ message: 'Login failed: invalid credentials' })
+
+
+        }
+        const user = result.rows[0]
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (isMatch) {
+            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+            return res.status(200).json({ token })
+        }
+        else {
+            return res.status(400).json({ message: 'Login failed: invalid credentials' })
+        }
 
     }
 
