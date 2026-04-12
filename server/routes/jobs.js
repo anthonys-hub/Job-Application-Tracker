@@ -42,7 +42,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
     try {
         const { company, position, status, date_applied, notes } = req.body
         const jobId = req.params.id
-        const edit = await pool.query('UPDATE jobs SET company = $1, position = $2, notes = $3, status = $4, date_applied = $5 WHERE jobId = $6 AND req.user.id = $7', [req.user.id, company, position, status, date_applied, notes])
+        const edit = await pool.query('UPDATE jobs SET company = $1, position = $2, notes = $3, status = $4, date_applied = $5 WHERE id = $6 AND user_id = $7', [company, position, notes, status, date_applied, jobId, req.user.id])
         return res.status(200).json({ message: 'Successfully edited! :)' });
     }
 
@@ -52,6 +52,17 @@ router.put('/:id', authMiddleware, async (req, res) => {
     }
 })
 
+
+router.delete('/:id', authMiddleware, async (req, res) => {
+    try {
+        const jobId = req.params.id
+        const deleteJob = await pool.query('DELETE FROM jobs WHERE id = $1 AND user_id = $2', [jobId, req.user.id])
+        return res.status(200).json({ message: 'Successfully deleted! :)' });
+    }
+    catch {
+        return res.status(500).json({ message: 'Server error' });
+    }
+})
 
 
 
