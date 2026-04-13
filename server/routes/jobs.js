@@ -8,12 +8,7 @@ router.get('/', authMiddleware, async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM jobs WHERE user_id = $1', [req.user.id])
         const jobs = result.rows
-        if (result.rows.length === 0) {
-            return res.status(404).json({ message: 'No jobs!' })
-        }
-        else {
-            return res.status(200).json(jobs)
-        }
+        return res.status(200).json(jobs)
     }
 
     catch {
@@ -31,7 +26,8 @@ router.post('/', authMiddleware, async (req, res) => {
 
     }
 
-    catch {
+    catch (err) {
+        console.log(err)
         return res.status(500).json({ message: 'Server error' });
     }
 
