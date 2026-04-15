@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import { Outlet } from "react-router-dom";
+import { useNavigate, NavLink, Outlet } from "react-router-dom";
 import profilepic from "../assets/profilepic.avif";
+
 
 export default function Layout() {
     const navigate = useNavigate()
@@ -23,18 +23,18 @@ export default function Layout() {
                 <div>
                     <div className="flex items-center gap-2 mb-6">
                         <img src={profilepic} alt="Profile picture" className="w-13 h-13 rounded-full object-cover" />
-                        <h1 className="font-semibold">👋 Hello, {name}</h1>
+                        <h1 className="font-light">👋 Hello, {name}</h1>
                     </div>
 
                     <div className="flex flex-col">
-                        <h1 onClick={() => navigate('/dashboard')} className="px-4 py-3 rounded-xl cursor-pointer hover:bg-gray-200 text-gray-700 font-medium">Dashboard</h1>
-                        <h1 onClick={() => navigate('/applications')} className="px-4 py-3 rounded-xl cursor-pointer hover:bg-gray-200 text-gray-700 font-medium">Applications</h1>
+                        <NavLink to="/dashboard" className={({ isActive }) => `px-4 py-3 rounded-xl cursor-pointer font-medium ${isActive ? "bg-blue-100 text-blue-700" : "hover:bg-gray-200 text-gray-700"}`}>Dashboard</NavLink>
+                        <NavLink to='/applications' className={({ isActive }) => `px-4 py-3 rounded-xl cursor-pointer font-medium ${isActive ? "bg-blue-100 text-blue-700" : "hover:bg-gray-200 text-gray-700"}`}>Applications</NavLink>
                     </div>
                 </div>
 
                 <h1 onClick={handleClear} className="px-4 py-3 rounded-xl cursor-pointer hover:bg-red-50 text-red-500 font-medium">Logout</h1>
 
-            </div>
+            </div >
 
 
 
@@ -42,10 +42,10 @@ export default function Layout() {
 
 
             {/*This is the outlet for sidebar wrapper do not touch */}
-            <div className="flex-1 overflow-auto">
+            < div className="flex-1 overflow-auto" >
                 <Outlet />
-            </div>
+            </div >
 
-        </div>
+        </div >
     )
 }

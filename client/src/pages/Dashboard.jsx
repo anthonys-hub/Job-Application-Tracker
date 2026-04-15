@@ -110,104 +110,76 @@ export default function Dashboard() {
 
     return (
 
-        <div className="bg-[#f8fafc]">
-            <h1>dashboard</h1>
-            {Array.isArray(jobs) && jobs.map(job => (
-
-                <div key={job.id}>
-                    <p>Company: {job.company}</p>
-                    <p>Position: {job.position}</p>
-                    <p>Status: {job.status}</p>
-                    <p>Date Applied: {job.date_applied}</p>
-                    <p>Notes: {job.notes}</p>
 
 
-                    <button className="bg-black text-white" onClick={() => handleDeleteJob(job.id)}>Delete Job</button>
-                    <button className="bg-blue-100 text-white" onClick={() => handleEditClick(job)}>Edit Job</button>
 
-                </div>
+        <div className="bg-[#f8fafc] pt-5 h-screen">
 
-            ))}
+            <div className="bg-white shadow-sm px-6 py-2 rounded-sm">
+                <h1 className="font-bold text-3xl">Job Application Tracker</h1>
+            </div>
 
 
-            <form onSubmit={editingJob ? handleSaveChanges : handleAddJob}>
-                <div>
-                    <input
-                        placeholder="company"
-                        type="text"
-                        value={company}
-                        onChange={(e) => {
-                            setCompany(e.target.value)
-                        }}
-                    />
 
-                </div>
-                <div>
-                    <input
-                        placeholder="position"
-                        type="text"
-                        value={position}
-                        onChange={(e) => {
-                            setPosition(e.target.value)
-                        }}
-                    />
+            <div className="mt-10 px-8 ">
+
+
+                <div className="flex flex-row gap-15 ">
+
+                    <div className="bg-white shadow-sm  rounded-2xl w-90 h-50 px-6 py-2">
+                        <h2 className="mt-8 font-light text-gray-800">TOTAL APPLIED</h2>
+                        <h1 className="font-bold text-6xl">{jobs.length}</h1>
+                    </div>
+
+                    <div className="bg-blue-300 shadow-sm  rounded-2xl w-90 px-6 py-2">
+                        <h2 className="mt-8 font-light text-gray-800">INTERVIEWS</h2>
+                        <h1 className="font-bold text-6xl">{jobs.filter(job => job.status === 'Interviewing').length}</h1>
+                    </div>
+
+                    <div className="bg-green-200 shadow-sm  rounded-2xl w-90 px-6 py-2">
+                        <h2 className="mt-8 font-light text-gray-800">OFFERS</h2>
+                        <h1 className="font-bold text-6xl">{jobs.filter(job => job.status === 'Offered').length}</h1>
+                    </div>
+
+
+
 
                 </div>
-                <div>
-                    <input
-                        placeholder="status"
-                        type="text"
-                        value={status}
-                        onChange={(e) => {
-                            setStatus(e.target.value)
-                        }}
-                    />
 
-                </div>
-                <div>
-                    <input
-                        placeholder="date of application"
-                        type="date"
-                        value={dateApplied}
-                        onChange={(e) => {
-                            setDateApplied(e.target.value)
-                        }}
-                    />
 
-                </div>
-                <div>
-                    <input
-                        placeholder="notes"
-                        type="text"
-                        value={notes}
-                        onChange={(e) => {
-                            setNotes(e.target.value)
-                        }}
-                    />
-
+                <div className="mt-10 ">
+                    <h2 className="font-bold text-3xl">Recent Activity</h2>
+                    <span className="text-gray-500">Real-time status tracking</span>
                 </div>
 
 
 
 
 
-                {editingJob ? (
-                    <button className="bg-blue-500 text-white">Save Changes</button>
-                ) : (
-                    <button className="bg-black text-white">Add Job</button>
-                )}
+                <div className="bg-white shadow-sm mt-5 rounded-2xl max-w-7xl h-70 border-gray-600">
+                    <div className="flex flex-row justify-between rounded-t-2xl py-3 px-6 text-gray-600 bg-gray-100">
+
+                        <h3>Company & Role</h3>
+                        <h3>Date Applied</h3>
+                        <h3>Status</h3>
+                        <h3>Actions</h3>
+                    </div>
+
+                    <div>
+                        {jobs.slice(0, 3).map(job => (
+                            <div key={job.id} className="flex flex-row justify-between px-6 py-4 border-b">
+                                <p>{job.company}</p>
+                                <p>{job.date_applied}</p>
+                                <p>{job.status}</p>
+
+                            </div>
+                        ))}
 
 
 
-
-
-            </form>
-
+                    </div>
+                </div>
+            </div>
         </div>
-
-
     )
 }
-
-
-
