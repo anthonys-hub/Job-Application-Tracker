@@ -11,49 +11,9 @@ export default function Dashboard() {
     const [editingJob, setEditingJob] = useState(null)
 
 
-    function fetchJobs() {
-        fetch('http://localhost:5000/api/jobs', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setJobs(data)
-            })
-    }
 
 
-    useEffect(() => {
-        fetchJobs()
-    }, [])
 
-
-    function handleAddJob(e) {
-        e.preventDefault()
-        console.log(JSON.stringify({ company, position, status, date_applied: dateApplied, notes }))
-        fetch('http://localhost:5000/api/jobs', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-
-            },
-            body: JSON.stringify({ company, position, status, date_applied: dateApplied, notes })
-
-        })
-            .then(res => res.json())
-            .then(data => {
-                (fetchJobs())
-                setCompany('')
-                setPosition('')
-                setStatus('')
-                setDateApplied('')
-                setNotes('')
-
-            })
-    }
 
 
     function handleDeleteJob(id) {
@@ -123,40 +83,44 @@ export default function Dashboard() {
 
             <div className="mt-10 px-8 ">
 
+                <div className="w-full">
 
-                <div className="flex flex-row gap-15 ">
+                    <div className="flex flex-row gap-15 ">
 
-                    <div className="bg-white shadow-sm  rounded-2xl w-90 h-50 px-6 py-2">
-                        <h2 className="mt-8 font-light text-gray-800">TOTAL APPLIED</h2>
-                        <h1 className="font-bold text-6xl">{jobs.length}</h1>
+                        <div className="bg-white shadow-sm  rounded-2xl flex-1 h-50 px-6 py-2">
+                            <h2 className="mt-8 font-light text-gray-800">TOTAL APPLIED</h2>
+                            <h1 className="font-bold text-6xl">{jobs.length}</h1>
+                        </div>
+
+                        <div className="bg-blue-300 shadow-sm  rounded-2xl flex-1 px-6 py-2">
+                            <h2 className="mt-8 font-light text-gray-800">INTERVIEWS</h2>
+                            <h1 className="font-bold text-6xl">{jobs.filter(job => job.status === 'Interviewing').length}</h1>
+                        </div>
+
+                        <div className="bg-green-200 shadow-sm  rounded-2xl flex-1 px-6 py-2">
+                            <h2 className="mt-8 font-light text-gray-800">OFFERS</h2>
+                            <h1 className="font-bold text-6xl">{jobs.filter(job => job.status === 'Offered').length}</h1>
+                        </div>
+
                     </div>
-
-                    <div className="bg-blue-300 shadow-sm  rounded-2xl w-90 px-6 py-2">
-                        <h2 className="mt-8 font-light text-gray-800">INTERVIEWS</h2>
-                        <h1 className="font-bold text-6xl">{jobs.filter(job => job.status === 'Interviewing').length}</h1>
-                    </div>
-
-                    <div className="bg-green-200 shadow-sm  rounded-2xl w-90 px-6 py-2">
-                        <h2 className="mt-8 font-light text-gray-800">OFFERS</h2>
-                        <h1 className="font-bold text-6xl">{jobs.filter(job => job.status === 'Offered').length}</h1>
-                    </div>
-
-
 
 
                 </div>
 
 
-                <div className="mt-10 ">
+                <div className="mt-10">
                     <h2 className="font-bold text-3xl">Recent Activity</h2>
-                    <span className="text-gray-500">Real-time status tracking</span>
+                    <div className="flex flex-row justify-between">
+                        <span className="text-gray-500">Real-time status tracking</span>
+                        <p className="mr-5 text-blue-950">View all entries</p>
+                    </div>
                 </div>
 
 
 
 
 
-                <div className="bg-white shadow-sm mt-5 rounded-2xl max-w-7xl h-70 border-gray-600">
+                <div className="bg-white shadow-sm mt-5 rounded-2xl  h-70 border-gray-600">
                     <div className="flex flex-row justify-between rounded-t-2xl py-3 px-6 text-gray-600 bg-gray-100">
 
                         <h3>Company & Role</h3>
@@ -175,11 +139,11 @@ export default function Dashboard() {
                             </div>
                         ))}
 
-
-
                     </div>
+
+
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

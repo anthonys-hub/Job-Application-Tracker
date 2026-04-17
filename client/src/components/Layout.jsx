@@ -42,7 +42,7 @@ export default function Layout() {
 
 
             {/*This is the outlet for sidebar wrapper do not touch */}
-            < div className="flex-1 overflow-auto" >
+            < div className="flex-1 overflow-auto relative" >
                 <Outlet />
             </div >
 
