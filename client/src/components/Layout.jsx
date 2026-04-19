@@ -12,6 +12,10 @@ export default function Layout() {
         navigate('/');
     }
 
+
+
+
+
     return (
 
 
@@ -23,7 +27,7 @@ export default function Layout() {
                 <div>
                     <div className="flex items-center gap-2 mb-6">
                         <img src={profilepic} alt="Profile picture" className="w-13 h-13 rounded-full object-cover" />
-                        <h1 className="font-light">👋 Hello, {name}</h1>
+                        <h1>👋 Hello, {name}</h1>
                     </div>
 
                     <div className="flex flex-col">
