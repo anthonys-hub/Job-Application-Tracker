@@ -6,6 +6,7 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
+
     function handleSubmit(e) {
         e.preventDefault()
         fetch('http://localhost:5000/api/auth/login', {
@@ -15,6 +16,10 @@ export default function Login() {
         })
             .then(res => res.json())
             .then(data => {
+                if (!data.token) {
+                    alert(data.message)
+                    return
+                }
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('name', data.name)
                 navigate('/dashboard')

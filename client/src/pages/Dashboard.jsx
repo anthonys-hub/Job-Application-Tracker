@@ -100,7 +100,7 @@ export default function Dashboard() {
         <div className="bg-[#f8fafc] pt-5 h-screen">
             <div className="w-full">
                 <div className="bg-white shadow-sm px-6 py-2  rounded-sm w-full">
-                    <h1 className="text-[16px] font-bold tracking-widest text-black uppercase">Dossier</h1>
+                    <h1 className="text-2xl font-extrabold tracking-widest text-black uppercase">Dossier</h1>
                 </div>
             </div>
 
@@ -112,7 +112,7 @@ export default function Dashboard() {
 
                     <div className="flex flex-row gap-15 ">
 
-                        <div className="bg-white shadow-sm  rounded-2xl flex-1 h-50 px-6 py-2">
+                        <div className="bg-indigo-50 shadow-sm  rounded-2xl flex-1 h-50 px-6 py-2">
                             <h2 className="mt-8 text-[16px] font-semibold tracking-widest text-slate-800 uppercase">TOTAL APPLIED</h2>
                             <h1 className="font-bold text-6xl">{jobs.length}</h1>
                         </div>

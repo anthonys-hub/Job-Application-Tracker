@@ -1,5 +1,11 @@
 import { useNavigate, NavLink, Outlet } from "react-router-dom";
 import profilepic from "../assets/profilepic.avif";
+import { CgLogOut } from "react-icons/cg";
+import { MdDashboard } from "react-icons/md";
+import { HiPaperAirplane } from "react-icons/hi2";
+
+
+
 
 
 export default function Layout() {
@@ -30,13 +36,40 @@ export default function Layout() {
                         <h1>👋 Hello, {name}</h1>
                     </div>
 
-                    <div className="flex flex-col">
-                        <NavLink to="/dashboard" className={({ isActive }) => `px-4 py-3 rounded-xl cursor-pointer font-medium ${isActive ? "bg-blue-100 text-blue-700" : "hover:bg-gray-200 text-gray-700"}`}>Dashboard</NavLink>
-                        <NavLink to='/applications' className={({ isActive }) => `px-4 py-3 rounded-xl cursor-pointer font-medium ${isActive ? "bg-blue-100 text-blue-700" : "hover:bg-gray-200 text-gray-700"}`}>Applications</NavLink>
+                    <div className="flex flex-col gap-1">
+                        <NavLink
+                            to="/dashboard"
+                            className={({ isActive }) =>
+                                `flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer font-medium transition-colors ${isActive ? "bg-blue-100 text-blue-700" : "hover:bg-gray-100 text-gray-600"
+                                }`
+                            }
+                        >
+                            <MdDashboard className="text-xl" />
+                            <span>Dashboard</span>
+                        </NavLink>
+
+                        <NavLink
+                            to="/applications"
+                            className={({ isActive }) =>
+                                `flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer font-medium transition-colors ${isActive ? "bg-blue-100 text-blue-700" : "hover:bg-gray-100 text-gray-600"
+                                }`
+                            }
+                        >
+                            <HiPaperAirplane className="text-xl" />
+                            <span>Applications</span>
+                        </NavLink>
                     </div>
                 </div>
 
-                <h1 onClick={handleClear} className="px-4 py-3 rounded-xl cursor-pointer hover:bg-red-50 text-red-500 font-medium">Logout</h1>
+                <div className="flex flex-row items-center">
+                    <h1
+                        onClick={handleClear}
+                        className="flex items-center gap-2 px-4 py-3 rounded-xl cursor-pointer hover:bg-red-50 text-red-500 font-medium transition-colors"
+                    >
+                        <CgLogOut className="text-xl" />
+                        <span>Logout</span>
+                    </h1>
+                </div>
 
             </div >
 
