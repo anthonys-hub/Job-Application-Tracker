@@ -14,7 +14,7 @@ export default function Applications() {
     const [activeFilter, setActiveFilter] = useState('All')
 
     function fetchJobs() {
-        fetch('http://localhost:5000/api/jobs', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/jobs`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -41,7 +41,7 @@ export default function Applications() {
 
     function handleSaveChanges(e) {
         e.preventDefault()
-        fetch(`http://localhost:5000/api/jobs/${editingJob.id}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/api/jobs/${editingJob.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export default function Applications() {
 
     function handleAddJob(e) {
         e.preventDefault()
-        fetch('http://localhost:5000/api/jobs', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/jobs`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export default function Applications() {
     }
 
     function handleDeleteJob(id) {
-        fetch(`http://localhost:5000/api/jobs/${id}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/api/jobs/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`

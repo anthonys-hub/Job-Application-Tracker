@@ -9,14 +9,18 @@ export default function Register() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        fetch('http://localhost:5000/api/auth/register', {
+        fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, password })
         })
             .then(res => res.json())
             .then(data => {
-                navigate('/dashboard')
+                if (data.message !== 'Account Created! :)') {
+                    alert(data.message)
+                    return
+                }
+                navigate('/')
             })
     }
 
